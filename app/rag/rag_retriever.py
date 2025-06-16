@@ -1,3 +1,7 @@
+import sys
+import pysqlite3
+sys.modules["sqlite3"] = pysqlite3
+
 import os
 import fitz  # PyMuPDF for PDFs
 import docx
