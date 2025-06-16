@@ -1,6 +1,13 @@
 import sys
-import pysqlite3
-sys.modules["sqlite3"] = pysqlite3
+import importlib
+
+# Patch for chromadb sqlite3 requirement
+try:
+    import pysqlite3
+    sys.modules["sqlite3"] = sys.modules["pysqlite3"]
+    sys.modules["pysqlite3.dbapi2"] = sys.modules["pysqlite3"]
+except ImportError:
+    importlib.import_module("sqlite3")
 
 import os
 import fitz  # PyMuPDF for PDFs
