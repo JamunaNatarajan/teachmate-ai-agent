@@ -6,6 +6,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import streamlit as st
 
 # Import all tab modules
+from app.ui import class_log_tab
+from app.ui import marks_analyzer_tab
 from app.ui import login   # 👈 This loads the login UI
 from app.ui import (
     syllabus_generator,
@@ -15,7 +17,9 @@ from app.ui import (
     feedback_tracker,
     ai_copilot,
     rag_uploader,
-    rag_qa
+    rag_qa,
+    attendance_report_tab,
+
 )
 
 # Page configuration
@@ -39,7 +43,11 @@ TABS = {
     "Feedback Tracker": feedback_tracker.render,
     "Chat with AI Co-Pilot": ai_copilot.render,
     "RAG Document Uploader": rag_uploader.render,
-    "RAG-Powered Q&A": rag_qa.render
+    "RAG-Powered Q&A": rag_qa.render,
+    "Attendance Report Generator": attendance_report_tab.render,
+    "Marks Analyzer": marks_analyzer_tab.render,
+    "Class Log Entry": class_log_tab.render,
+
 }
 # 🔐 LOGIN CHECK
 if "logged_in" not in st.session_state:
