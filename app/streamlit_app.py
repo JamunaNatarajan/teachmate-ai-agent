@@ -7,7 +7,6 @@ import streamlit as st
 
 # Import all tab modules
 from app.ui import login   # 👈 This loads the login UI
-from app.agents import pdf_qa_agent
 from app.ui import (
     syllabus_generator,
     lesson_plan_creator,
@@ -16,8 +15,7 @@ from app.ui import (
     feedback_tracker,
     ai_copilot,
     rag_uploader,
-    rag_qa,
-    pdf_qa_tab
+    rag_qa
 )
 
 # Page configuration
@@ -41,8 +39,7 @@ TABS = {
     "Feedback Tracker": feedback_tracker.render,
     "Chat with AI Co-Pilot": ai_copilot.render,
     "RAG Document Uploader": rag_uploader.render,
-    "RAG-Powered Q&A": rag_qa.render,
-    "PDF Q&A Bot": pdf_qa_tab.render
+    "RAG-Powered Q&A": rag_qa.render
 }
 # 🔐 LOGIN CHECK
 if "logged_in" not in st.session_state:
