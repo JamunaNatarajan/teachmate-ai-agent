@@ -6,6 +6,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import streamlit as st
 
 # Import all tab modules
+from app.ui import login   # 👈 This loads the login UI
+from app.agents import pdf_qa_agent
 from app.ui import (
     syllabus_generator,
     lesson_plan_creator,
@@ -14,7 +16,8 @@ from app.ui import (
     feedback_tracker,
     ai_copilot,
     rag_uploader,
-    rag_qa
+    rag_qa,
+    pdf_qa_tab
 )
 
 # Page configuration
@@ -38,11 +41,23 @@ TABS = {
     "Feedback Tracker": feedback_tracker.render,
     "Chat with AI Co-Pilot": ai_copilot.render,
     "RAG Document Uploader": rag_uploader.render,
-    "RAG-Powered Q&A": rag_qa.render
+    "RAG-Powered Q&A": rag_qa.render,
+    "PDF Q&A Bot": pdf_qa_tab.render
 }
+# 🔐 LOGIN CHECK
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    login.render()
+    st.stop()
 
 # Sidebar navigation
 selected_tab = st.sidebar.radio("🧭 Choose a Module", list(TABS.keys()))
+st.sidebar.markdown(f"👋 Welcome, **{st.session_state.username}**")
+if st.sidebar.button("🔓 Logout"):
+    st.session_state.logged_in = False
+    st.rerun()
 
 # Header title
 st.title("📚 TeachMate AI Agent – Smart Assistant for Educators")
